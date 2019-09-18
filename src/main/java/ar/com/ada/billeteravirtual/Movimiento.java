@@ -7,6 +7,7 @@ import java.sql.Date;
  */
 public class Movimiento {
 
+    protected int movimientoId;
     protected Date fecha;
     protected Coordenada ubicacion;
     protected double importe;

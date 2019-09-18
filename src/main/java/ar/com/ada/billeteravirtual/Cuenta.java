@@ -8,10 +8,11 @@ import java.util.List;
  */
 public class Cuenta {
 
+    protected int cuentaId;
     protected String moneda;
     protected double saldo;
     protected double saldoDisponible;
-    //protected int nroCuenta; //tiene que ser unívoco en todo el programa
+    protected int nroCuenta; //tiene que ser unívoco en todo el programa
 
     public static List<Movimiento> movimientos = new ArrayList<Movimiento>();
    

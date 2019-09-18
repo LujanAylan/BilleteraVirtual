@@ -8,6 +8,7 @@ import java.util.List;
  */
 public class Billetera {
 
+    int billeteraId;
     protected static List<Cuenta> cuentas = new ArrayList<Cuenta>();   
 
 }

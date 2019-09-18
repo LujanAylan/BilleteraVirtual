@@ -5,5 +5,7 @@ package ar.com.ada.billeteravirtual;
  */
 public class Dinero {
 
-    Long dinero;
+    protected int dineroId;
+    protected String moneda;
+    protected int cantidad;
 }
