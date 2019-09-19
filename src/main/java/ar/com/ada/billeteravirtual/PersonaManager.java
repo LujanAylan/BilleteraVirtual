@@ -104,8 +104,6 @@ public class PersonaManager {
 
         return todas;
 
-        
-
     }
 
     /**
