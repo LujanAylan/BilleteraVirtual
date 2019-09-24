@@ -12,26 +12,31 @@ public class Usuario {
     @Id
     @Column(name = "usuario_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int usuarioId;
+    private Integer usuarioId;
     private String userName;
     private String password;
-    @Column (name= "email")
+    @Column(name = "email")
     private String userEmail;
-    @Column(name = "persona_id")
-    private int personaId;
+    /*@Column(name = "persona_id")
+    private int personaId;*/
 
-    public Usuario (String userName, String password, String email){
+    // ACTIVO lel OneTo One, pero para que funcione persona tiene quetener un valor.
+    // Aca no hace falta el cascade
+    @OneToOne
+    @JoinColumn(name = "persona_id", referencedColumnName = "persona_id")
+    // @MapsId
+    private Persona persona;
+
+    public Usuario(String userName, String password, String email) {
         this.userName = userName;
         this.password = password;
         this.userEmail = email;
     }
 
-    public Usuario(){
-
+    public Usuario() {
     }
 
-
-    public Usuario (String password){
+    public Usuario(String password) {
         this.password = password;
     }
 
@@ -72,7 +77,7 @@ public class Usuario {
         return "Usuario [User Name=" + userName + ", Password=" + password + ", User Email=" + userEmail + "]";
     }
 
-    public int getPersonaId() {
+    /*public int getPersonaId() {
         return personaId;
     }
 
@@ -82,13 +87,19 @@ public class Usuario {
 
     public Usuario(int personaId) {
         this.personaId = personaId;
+    }*/
+
+    public Persona getPersona() {
+        return persona;
     }
 
-    /*public String getEmail() {
-        return email;
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
-    public void setEmail(String email) {
-        this.email = email;
-    }*/
+
+    /*
+     * public String getEmail() { return email; } public void setEmail(String email)
+     * { this.email = email; }
+     */
 
 }

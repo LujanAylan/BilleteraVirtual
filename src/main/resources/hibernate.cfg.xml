@@ -18,7 +18,7 @@
 
 <property name="connection.username">adadb</property>
 
-<property name="connection.password">Shakira.developer</property>
+<property name="connection.password">Contraseña1!</property>
 
 <property name="show_sql">false</property>
 
