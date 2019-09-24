@@ -5,11 +5,13 @@ import ar.com.ada.billeteravirtual.Persona;
 /**
  * PersonaEdadException
  */
-public class PersonaEdadException extends PersonaInfoException {
+public class PersonaEdadException extends Exception {
+
+    private Persona persona;
 
     public PersonaEdadException(Persona p, String mensaje) {
-        super(p, mensaje);
-        // TODO Auto-generated constructor stub
+        super(p.getNombre()+":"+ mensaje);
+        this.persona = p;
     }
-
+    
 }

@@ -1,19 +1,31 @@
 package ar.com.ada.billeteravirtual;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  * Cuenta
  */
+@Entity
+@Table(name = "cuenta")
 public class Cuenta {
-
-    protected int cuentaId;
+    
+    @Id
+    @Column(name = "cuenta_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Integer cuentaId;
     protected String moneda;
     protected double saldo;
+    @Column(name = "saldo_disponible")
     protected double saldoDisponible;
-    protected int nroCuenta; //tiene que ser unívoco en todo el programa
 
-    public static List<Movimiento> movimientos = new ArrayList<Movimiento>();
-   
+    @OneToMany(mappedBy = "movimiento", cascade = CascadeType.ALL)
+    private Movimiento movimiento;
+
 }
