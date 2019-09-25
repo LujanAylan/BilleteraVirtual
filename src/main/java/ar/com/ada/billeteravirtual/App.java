@@ -1,11 +1,11 @@
 package ar.com.ada.billeteravirtual;
 
-import java.util.*;
+import java.sql.Date;
+import java.util.List;
+import java.util.Scanner;
 
 import ar.com.ada.billeteravirtual.excepciones.PersonaEdadException;
 import ar.com.ada.billeteravirtual.security.Crypto;
-
-import org.hibernate.exception.ConstraintViolationException;
 
 public class App {
 
@@ -13,12 +13,16 @@ public class App {
 
     public static PersonaManager ABMPersona = new PersonaManager();
     public static UsuarioManager ABMUsuario = new UsuarioManager();
+    public static BilleteraManager ABMBilletera = new BilleteraManager();
+    public static CuentaManager ABMCuenta = new CuentaManager();
 
     public static void main(String[] args) throws Exception {
 
         try {
             ABMPersona.setup();
             ABMUsuario.setup();
+            ABMBilletera.setup();
+            ABMCuenta.setup();
 
             printOpciones();
 
@@ -66,6 +70,9 @@ public class App {
             // Hago un safe exit del manager
             ABMPersona.exit();
             ABMUsuario.exit();
+            ABMBilletera.exit();
+            ABMCuenta.exit();
+            
         } catch (Exception e) {
             // TODO: handle exception
             System.out.println("Que lindo mi sistema,se rompio mi sistema");
@@ -141,13 +148,35 @@ public class App {
             // ABMUsuario.create(u);
 
             // System.out.println("Usuario generado con exito. " + u);
-        }
+        
         ABMPersona.create(p);
+
+        Billetera b = new Billetera();
+        b.setPersona(p);
+
+        Cuenta c = new Cuenta();
+        c.setMoneda("ARS");
+        b.agregarCuentas(c);
+        c.getSaldo();
+
+        Movimiento m = new Movimiento();
+        m.setImporte(222222);
+        m.setDeUsuario(u.getUsuarioId());
+        m.setaUsuario(u.getUsuarioId());
+        m.setCuentaDestino(c.getCuentaId());
+        m.setCuentaOrigen(c.getCuentaId());
+        m.setConceptoOperacion("Deposito");
+        m.setTipoOperacion("Deposito");
+        m.setEstado(0);
+        m.setFecha(new Date(2019));
+        m.setDetalle("Operacion realizada : " + m.getTipoOperacion()+ "Total de " + m.getImporte() );
+        
+        c.agregarMovimientos(m);
 
         System.out.println("Persona generada con exito.  " + p);
         if (p.getUsuario() != null)
             System.out.println("Tambien se le creo un usuario: " + p.getUsuario().getUserName());
-
+        } 
     }
 
     public static void baja() {
