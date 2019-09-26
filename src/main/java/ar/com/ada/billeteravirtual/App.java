@@ -77,7 +77,6 @@ public class App {
             ABMMovimiento.exit();
 
         } catch (Exception e) {
-            // TODO: handle exception
             System.out.println("Que lindo mi sistema,se rompio mi sistema");
             throw e;
         }
@@ -201,7 +200,6 @@ public class App {
                 ABMPersona.delete(personaEncontrada);
                 System.out.println("El registro de " + personaEncontrada.getDni() + " ha sido eliminado.");
             } catch (Exception e) {
-                // TODO: handle exception
                 System.out.println("Ocurrio un error al eliminar una persona.Error: " + e.getCause());
             }
         }
