@@ -17,7 +17,7 @@ public class Movimiento {
     protected int movimientoId;
     @Column(name = "fecha_hora")
     protected Date fecha;
-    protected Coordenada ubicacion;
+    //protected Coordenada ubicacion;
     protected double importe;
     @Column(name = "tipo_operacion")
     protected String tipoOperacion; // -> entrada | salida
@@ -55,14 +55,6 @@ public class Movimiento {
 
     public void setFecha(Date date) {
         this.fecha = date;
-    }
-
-    public Coordenada getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(Coordenada ubicacion) {
-        this.ubicacion = ubicacion;
     }
 
     public double getImporte() {
