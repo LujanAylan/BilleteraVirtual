@@ -28,6 +28,9 @@ public class Cuenta {
     @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL)
     private List<Movimiento> movimientos = new ArrayList<Movimiento>();
 
+    public Cuenta(){
+    }
+
     public List<Movimiento> getMovimientos() {
         return movimientos;
     }

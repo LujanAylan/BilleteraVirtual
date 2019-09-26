@@ -16,7 +16,6 @@ public class Billetera {
     @Column(name = "billetera_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int billeteraId;
-    private List<Cuenta> cuentas = new ArrayList<Cuenta>();
 
     public Billetera(){
     }
@@ -26,7 +25,7 @@ public class Billetera {
     }
 
     @OneToMany(mappedBy = "billetera", cascade = CascadeType.ALL)
-    private Cuenta cuenta;
+    private List<Cuenta> cuentas = new ArrayList<Cuenta>();
 
     @OneToOne
     @JoinColumn(name = "persona_id", referencedColumnName = "persona_id")

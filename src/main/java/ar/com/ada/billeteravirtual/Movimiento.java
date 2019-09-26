@@ -1,6 +1,6 @@
 package ar.com.ada.billeteravirtual;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.*;
 
@@ -34,9 +34,12 @@ public class Movimiento {
     @Column(name = "cuenta_origen")
     protected int cuentaOrigen;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "cuenta_id", referencedColumnName = "cuenta_id")
     private Cuenta cuenta;
+
+    public Movimiento(){
+    }
 
     public int getMovimientoId() {
         return movimientoId;
@@ -50,8 +53,8 @@ public class Movimiento {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFecha(Date date) {
+        this.fecha = date;
     }
 
     public Coordenada getUbicacion() {

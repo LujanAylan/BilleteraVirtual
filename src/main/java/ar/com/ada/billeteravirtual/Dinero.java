@@ -9,6 +9,9 @@ public class Dinero {
     protected String moneda;
     protected int cantidad;
 
+    public Dinero(){
+    }
+
     public int getDineroId() {
         return dineroId;
     }
