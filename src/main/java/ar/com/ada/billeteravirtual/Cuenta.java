@@ -1,9 +1,11 @@
 package ar.com.ada.billeteravirtual;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 /**
  * Cuenta
@@ -16,6 +18,7 @@ public class Cuenta {
     @Column(name = "cuenta_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int cuentaId;
+
     protected String moneda;
     protected double saldo;
     @Column(name = "saldo_disponible")
@@ -26,6 +29,7 @@ public class Cuenta {
     private Billetera billetera;
 
     @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Movimiento> movimientos = new ArrayList<Movimiento>();
 
     public Cuenta(){
@@ -39,12 +43,20 @@ public class Cuenta {
         this.movimientos = movimientos;
     }
 
-    public Billetera getBilletera() {
-        return billetera;
-    }
+    /**
+     * @param billetera the usuario to set
+     */
 
     public void setBilletera(Billetera billetera) {
         this.billetera = billetera;
+    }
+
+    /**
+     * @return the usuario
+     */
+
+    public Billetera getBilletera() {
+        return billetera;
     }
 
     public int getCuentaId() {
@@ -79,10 +91,10 @@ public class Cuenta {
         this.saldoDisponible = saldoDisponible;
     }
 
-    public void agregarMovimientos(Movimiento movimiento){
+    public void agregarMovimiento(Movimiento movimiento){
 		movimiento.setCuenta(this);
 		this.movimientos.add(movimiento);
 		this.setSaldo(this.getSaldo() + movimiento.getImporte());
-	}
+    }
     
 }

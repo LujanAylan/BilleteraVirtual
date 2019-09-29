@@ -12,6 +12,7 @@ import javax.persistence.*;
 public class Movimiento {
 
     @Id
+    
     @Column(name = "movimiento_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int movimientoId;

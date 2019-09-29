@@ -1,8 +1,6 @@
 package ar.com.ada.billeteravirtual;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import ar.com.ada.billeteravirtual.excepciones.PersonaEdadException;
 import ar.com.ada.billeteravirtual.security.Crypto;
@@ -146,18 +144,19 @@ public class App {
         /// p.SetUsuario(u)
         // u.setPersonaId(p.getPesonaId());
         // ABMUsuario.create(u);
-
         // System.out.println("Usuario generado con exito. " + u);
-
-        ABMPersona.create(p);
+        // System.out.println("Persona generada con exito. " + p);
+        // if (p.getUsuario() != null)
+        // System.out.println("Tambien se le creo un usuario: " +
+        /// p.getUsuario().getUserName());
 
         Billetera b = new Billetera();
         b.setPersona(p);
+        ABMPersona.create(p);
 
         Cuenta c = new Cuenta();
         c.setMoneda("ARS");
         b.agregarCuentas(c);
-        c.getSaldo();
 
         ABMBilletera.create(b);
 
@@ -168,18 +167,66 @@ public class App {
         m.setCuentaDestino(c.getCuentaId());
         m.setCuentaOrigen(c.getCuentaId());
         m.setConceptoOperacion("Deposito");
-        m.setTipoOperacion("Deposito");
+        m.setTipoOperacion("Entrada");
         m.setEstado(0);
         m.setFecha(new Date());
         m.setDetalle("Operacion realizada : " + m.getTipoOperacion() + "Total de " + m.getImporte());
 
-        c.agregarMovimientos(m);
+        c.agregarMovimiento(m);
 
         ABMBilletera.update(b);
 
         System.out.println("Persona generada con exito.  " + p);
-        if (p.getUsuario() != null)
-            System.out.println("Tambien se le creo un usuario: " + p.getUsuario().getUserName());
+        System.out.println("Tambien se le creo un usuario: " + p.getUsuario().getUserName() + " con una billetera.");
+
+        Billetera b2 = ABMBilletera.read(b.getBilleteraId());
+
+        System.out.println("El saldo de la billetera es de: " + b2.getCuentas().get(0).getSaldo());
+        System.out.println("Desea enviar dinero a otra cuenta?");
+        String rta;
+        rta = Teclado.nextLine();
+
+        if (rta.equals("si")) {
+
+            Billetera b3 = ABMBilletera.read(2);
+
+            Movimiento m2 = new Movimiento();
+            m2.setImporte(-50);
+            m2.setDeUsuario(u.getUsuarioId());
+            m2.setaUsuario(7);
+            m2.setCuentaOrigen(b2.getCuentas().get(0).getCuentaId());
+            m2.setCuentaDestino(b3.getCuentas().get(0).getCuentaId());
+            m2.setConceptoOperacion("Transferencia");
+            m2.setTipoOperacion("Salida");
+            m2.setEstado(0);
+            m2.setFecha(new Date());
+            b2.getCuentas().get(0).agregarMovimiento(m2);
+
+            // b3.getCuentas()
+
+            ABMBilletera.update(b2);
+
+            Movimiento m3 = new Movimiento();
+            m3.setImporte(+53);
+            m3.setDeUsuario(u.getUsuarioId());
+            m3.setaUsuario(7);
+            m3.setCuentaOrigen(b2.getCuentas().get(0).getCuentaId());
+            m3.setCuentaDestino(b3.getCuentas().get(0).getCuentaId());
+            m3.setConceptoOperacion("Cobro");
+            m3.setTipoOperacion("Entrada");
+            m3.setEstado(0);
+            m3.setFecha(new Date());
+            b3.getCuentas().get(0).agregarMovimiento(m3);
+
+            ABMBilletera.update(b3);
+            b3 = ABMBilletera.read(b3.getBilleteraId());
+            System.out.println("El saldo de ID 7 es " + b3.getCuentas().get(0).getSaldo());
+        }
+
+        System.out.println("Se enviaron $50 desde la cuenta " + b2.getCuentas().get(0).getCuentaId() + " a la cuenta ID 7.");
+
+        b2 = ABMBilletera.read(b2.getBilleteraId());
+        System.out.println("El saldo de tu cuenta ahora es:" + b2.getCuentas().get(0).getSaldo());
 
     }
 
@@ -202,22 +249,6 @@ public class App {
             } catch (Exception e) {
                 System.out.println("Ocurrio un error al eliminar una persona.Error: " + e.getCause());
             }
-        }
-    }
-
-    public static void bajaPorDNI() {
-        // System.out.println("Ingrese el nombre:");
-        // String n = Teclado.nextLine();
-        System.out.println("Ingrese el DNI de Persona:");
-        String dni = Teclado.nextLine();
-        Persona personaEncontrada = ABMPersona.readByDNI(dni);
-
-        if (personaEncontrada == null) {
-            System.out.println("Persona no encontrada.");
-
-        } else {
-            ABMPersona.delete(personaEncontrada);
-            System.out.println("El registro de " + personaEncontrada.getDni() + " ha sido eliminado.");
         }
     }
 
