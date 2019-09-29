@@ -38,7 +38,7 @@ public class App {
                     try {
                         alta();
                     } catch (PersonaEdadException exedad) {
-                        System.out.println("La edad permitida es a partir de 18 anios");
+                        System.out.println("La edad permitida es a partir de 18 años");
                     }
                     break;
 
