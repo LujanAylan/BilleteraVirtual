@@ -92,18 +92,6 @@ public class App {
         System.out.println("Ingrese el Email:");
         p.setEmail(Teclado.nextLine());
 
-        /*
-         * ABMPersona.create(p);
-         * 
-         * System.out.println("Persona generada con exito.  " + p);
-         */
-
-        // System.out.println("Desea crear un usuario para esa persona?");
-
-        /*
-         * String rta; rta = Teclado.nextLine(); if (rta.equals("si")) {
-         */
-
         Usuario u = new Usuario();
         u.setUserName(p.getEmail());
         System.out.println("Su nombre de usuario es " + u.getUserName());
@@ -133,22 +121,9 @@ public class App {
 
         u.setPassword(passwordEncriptada);
 
-        /*
-         * System.out.println("Su mail es:"); u.setUserEmail(p.getEmail());
-         */
-        // System.out.println("Ingrese su email de usuario:");
         u.setUserEmail(u.getUserName());
 
         p.setUsuario(u);
-        /// u.setPersona(p); <- esta linea hariaa falta si no lo hacemos en el
-        /// p.SetUsuario(u)
-        // u.setPersonaId(p.getPesonaId());
-        // ABMUsuario.create(u);
-        // System.out.println("Usuario generado con exito. " + u);
-        // System.out.println("Persona generada con exito. " + p);
-        // if (p.getUsuario() != null)
-        // System.out.println("Tambien se le creo un usuario: " +
-        /// p.getUsuario().getUserName());
 
         Billetera b = new Billetera();
         b.setPersona(p);
@@ -202,8 +177,6 @@ public class App {
             m2.setFecha(new Date());
             b2.getCuentas().get(0).agregarMovimiento(m2);
 
-            // b3.getCuentas()
-
             ABMBilletera.update(b2);
 
             Movimiento m3 = new Movimiento();
@@ -231,8 +204,6 @@ public class App {
     }
 
     public static void baja() {
-        // System.out.println("Ingrese el nombre:");
-        // String n = Teclado.nextLine();
         System.out.println("Ingrese el ID de Persona:");
         int id = Teclado.nextInt();
         Teclado.nextLine();
@@ -253,8 +224,6 @@ public class App {
     }
 
     public static void modifica() throws Exception {
-        // System.out.println("Ingrese el nombre de la persona a modificar:");
-        // String n = Teclado.nextLine();
 
         System.out.println("Desea modificar un dato de la persona o del usuario? \n1: persona \n2: usuario");
         int seleccion = Teclado.nextInt();
@@ -343,33 +312,6 @@ public class App {
 
         }
     }
-
-    /*
-     * public static void modificaByDNI() { //
-     * System.out.println("Ingrese el nombre de la persona a modificar:"); // String
-     * n = Teclado.nextLine();
-     * System.out.println("Ingrese el DNI de la persona a modificar:"); String dni =
-     * Teclado.nextLine(); Persona personaEncontrada = ABMPersona.readByDNI(dni);
-     * 
-     * if (personaEncontrada != null) {
-     * 
-     * System.out.println(personaEncontrada.toString() +
-     * "seleccionado para modificacion.");
-     * System.out.println("Ingrese el nuevo nombre:");
-     * personaEncontrada.setNombre(Teclado.nextLine());
-     * System.out.println("Ingrese el nuevo DNI:");
-     * personaEncontrada.setDni(Teclado.nextLine()); // Teclado.nextLine();
-     * System.out.println("Ingrese la nueva edad:");
-     * personaEncontrada.setEdad(Teclado.nextInt()); Teclado.nextLine();
-     * 
-     * System.out.println("Ingrese el nuevo Email:");
-     * personaEncontrada.setEmail(Teclado.nextLine());
-     * 
-     * ABMPersona.update(personaEncontrada); System.out.println("El registro de " +
-     * personaEncontrada.getDni() + " ha sido modificado.");
-     * 
-     * } else { System.out.println("Persona no encontrada."); }
-     */
 
     public static void listar() {
 
